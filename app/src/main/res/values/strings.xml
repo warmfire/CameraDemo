@@ -1,0 +1,9 @@
+<resources>
+
+    <string name="app_name">赵涌在线二维码</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+
+    <string name="scan_text">将条形码放入框内, 即可自动扫描</string>
+</resources>
