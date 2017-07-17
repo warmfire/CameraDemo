@@ -12,7 +12,7 @@ https://github.com/bingoogolapple/BGAQRCode-Android</br>
 
 ### 2、图片裁剪
 https://github.com/yanzhenjie/Durban</br>
-![](https://github.com/yanzhenjie/Durban/raw/master/image/2.gif）
+![](https://github.com/yanzhenjie/Durban/raw/master/image/2.gif)
 
 ### 3、相册选择图片
 https://github.com/mylhyl/Android-Zxing</br>
