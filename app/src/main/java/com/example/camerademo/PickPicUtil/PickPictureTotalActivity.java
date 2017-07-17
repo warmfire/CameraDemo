@@ -1,4 +1,4 @@
-package com.example.camerademo;
+package com.example.camerademo.PickPicUtil;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -13,6 +13,10 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import com.example.camerademo.R;
+import com.yanzhenjie.durban.Durban;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -40,6 +44,7 @@ public class PickPictureTotalActivity extends Activity {
     private PickPictureTotalAdapter mAdapter;
     private ListView mListView;
     private final MyHandler myHandler = new MyHandler(this);
+    private TextView txt_back;
 
     private static class MyHandler extends Handler {
         private final WeakReference<PickPictureTotalActivity> mActivity;
@@ -73,6 +78,7 @@ public class PickPictureTotalActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pick_picture_total);
+        txt_back = (TextView) findViewById(R.id.txt_back);
         mListView = (ListView) findViewById(R.id.pick_picture_total_listView);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -80,7 +86,13 @@ public class PickPictureTotalActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 List<String> childList = mGroupMap.get(list.get(position).getFolderName());
-                PickPictureActivity.gotoActivity(PickPictureTotalActivity.this, (ArrayList<String>) childList);
+                PickPictureActivity.gotoActivity(PickPictureTotalActivity.this, (ArrayList<String>) childList, list.get(position).getFolderName());
+            }
+        });
+        txt_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
         getPicture();
@@ -176,7 +188,9 @@ public class PickPictureTotalActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != Activity.RESULT_CANCELED && resultCode == Activity.RESULT_OK) {
             if (requestCode == PickPictureTotalActivity.REQUEST_CODE_SELECT_ALBUM) {
-                setResult(Activity.RESULT_OK, data);
+                Intent intent = new Intent();
+                intent.putExtra("imgUri", data.getStringExtra("imgUri"));
+                setResult(Activity.RESULT_OK, intent);
                 finish();
             }
         }

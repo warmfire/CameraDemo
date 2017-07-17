@@ -1,10 +1,11 @@
-package com.example.camerademo;
+package com.example.camerademo.PickPicUtil;
 
 
 import android.content.Context;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.example.camerademo.R;
 
 import java.util.List;
 
@@ -24,3 +25,4 @@ class PickPictureAdapter extends CygAdapter<String> {
         Glide.with(mContext).load(item).into(imageView);
     }
 }
+

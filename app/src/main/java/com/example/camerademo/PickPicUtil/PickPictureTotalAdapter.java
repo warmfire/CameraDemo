@@ -1,9 +1,10 @@
-package com.example.camerademo;
+package com.example.camerademo.PickPicUtil;
 
 import android.content.Context;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.example.camerademo.R;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ class PickPictureTotalAdapter extends CygAdapter<Picture> {
     public void onBindData(CygViewHolder viewHolder, Picture item, int position) {
         viewHolder.setText(R.id.pick_picture_total_list_item_group_title, item.getFolderName());
         viewHolder.setText(R.id.pick_picture_total_list_item_group_count
-                , "(" + Integer.toString(item.getPictureCount()) + ")");
+                , Integer.toString(item.getPictureCount()) + " 张照片");
         ImageView imageView = viewHolder.findViewById(R.id.pick_picture_total_list_item_group_image);
         Glide.with(mContext).load(item.getTopPicturePath()).into(imageView);
     }

@@ -6,19 +6,13 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="21" />
 
-    <!--允许联网 -->
+
     <uses-permission android:name="android.permission.INTERNET" />
-    <!--获取GSM（2g）、WCDMA（联通3g）等网络状态的信息  -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!--获取wifi网络状态的信息 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <!--保持CPU 运转，屏幕和键盘灯有可能是关闭的,用于文件上传和下载 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <!--获取sd卡写的权限，用于文件上传和下载-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!--获取sd卡读取的权限-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <!-- 在sd中创建和删除文件的权限 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-feature android:name="android.hardware.camera" />
@@ -27,8 +21,10 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
+        android:name=".PickPicUtil.APP"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -45,7 +41,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".TestScanActivity"
+        <activity android:name=".ScanUtil.TestScanActivity"
             android:screenOrientation="portrait"/>
 
 
@@ -56,8 +52,8 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden"/>
 
-        <activity android:name=".PickPictureTotalActivity"/>
-        <activity android:name=".PickPictureActivity"/>
+        <activity android:name=".PickPicUtil.PickPictureTotalActivity"/>
+        <activity android:name=".PickPicUtil.PickPictureActivity"/>
     </application>
 
 </manifest>

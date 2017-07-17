@@ -1,4 +1,4 @@
-package com.example.camerademo;
+package com.example.camerademo.PickPicUtil;
 
 import android.content.Context;
 import android.util.SparseArray;
@@ -8,9 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 /**
- * Created by warmfire on 2017-07-14.
+ * Created by warmfire on 2017-07-17.
  */
-
 public final class CygViewHolder {
     private Context mContext;
     private SparseArray<View> mViews;

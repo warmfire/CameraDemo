@@ -1,4 +1,4 @@
-package com.example.camerademo;
+package com.example.camerademo.PickPicUtil;
 
 import android.content.Context;
 import android.view.View;
@@ -13,8 +13,9 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * Created by warmfire on 2017-07-14.
+ * Created by warmfire on 2017-07-17.
  */
+
 public abstract class CygAdapter<T> extends BaseAdapter implements Filterable {
     private final Object mLock = new Object();
     private ObjectFilter mFilter;

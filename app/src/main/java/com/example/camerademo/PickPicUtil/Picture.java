@@ -1,4 +1,4 @@
-package com.example.camerademo;
+package com.example.camerademo.PickPicUtil;
 
 /**
  * Created by hupei on 2016/7/7.

@@ -1,17 +1,11 @@
-package com.example.camerademo;
+package com.example.camerademo.ScanUtil;
 
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.provider.MediaStore;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
@@ -20,18 +14,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.yanzhenjie.durban.Controller;
-import com.yanzhenjie.durban.Durban;
+import com.example.camerademo.CutPicUtil.CutPic;
+import com.example.camerademo.PickPicUtil.PickPictureTotalActivity;
+import com.example.camerademo.R;
 
 import java.util.ArrayList;
 
-import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
 import cn.bingoogolapple.qrcode.core.QRCodeView;
 import cn.bingoogolapple.qrcode.zxing.QRCodeDecoder;
 import cn.bingoogolapple.qrcode.zxing.ZXingView;
-import io.valuesfeng.picker.Picker;
-import io.valuesfeng.picker.engine.GlideEngine;
-import io.valuesfeng.picker.utils.PicturePickerUtils;
 
 public class TestScanActivity extends Activity implements QRCodeView.Delegate {
     private static final String TAG = TestScanActivity.class.getSimpleName();
@@ -42,6 +33,8 @@ public class TestScanActivity extends Activity implements QRCodeView.Delegate {
     private ImageView imageView;
     private TextView back, xiangce;
     private boolean isFirst = true;
+
+    private String imgPath = "";
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,21 +54,7 @@ public class TestScanActivity extends Activity implements QRCodeView.Delegate {
         xiangce.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //startActivityForResult(BGAPhotoPickerActivity.newIntent(TestScanActivity.this, null, 1, null, false), REQUEST_CODE_CHOOSE_QRCODE_FROM_GALLERY);
-
-//                Intent intent = new Intent(Intent.ACTION_PICK,
-//                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//                startActivityForResult(intent, 100);
-
-//                Picker.from(TestScanActivity.this)
-//                        .count(1)
-//                        .enableCamera(false)
-//                        .setEngine(new GlideEngine())
-//                        .forResult(100);
-
-
-                Intent intent = new Intent(TestScanActivity.this, PickPictureTotalActivity.class);
-                startActivityForResult(intent, 100);
+                PickPictureTotalActivity.gotoActivity(TestScanActivity.this);
             }
         });
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -143,42 +122,10 @@ public class TestScanActivity extends Activity implements QRCodeView.Delegate {
         mQRCodeView.showScanRect();
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
-                case REQUEST_CODE_CHOOSE_QRCODE_FROM_GALLERY:
-                    final String picturePath = BGAPhotoPickerActivity.getSelectedImages(data).get(0);
-                    doCut(picturePath);
-                case 100: {
-//                    Uri selectedImage = data.getData();
-//                    String[] filePathColumns = {MediaStore.Images.Media.DATA};
-//                    Cursor c = getContentResolver().query(selectedImage, filePathColumns, null, null, null);
-//                    c.moveToFirst();
-//                    int columnIndex = c.getColumnIndex(filePathColumns[0]);
-//                    String imagePath = c.getString(columnIndex);
-//                    Log.d("imagePath", imagePath);
-//                    c.close();
-//                    ArrayList<String> imagePathList = new ArrayList<String>();
-//                    imagePathList.add(imagePath);
-//                    cropImage(imagePathList);
-
-
-//                    for (Uri u : PicturePickerUtils.obtainResult(data)) {
-//                        String[] filePathColumns = {MediaStore.Images.Media.DATA};
-//                        Cursor c = getContentResolver().query(u, filePathColumns, null, null, null);
-//                        c.moveToFirst();
-//                        int columnIndex = c.getColumnIndex(filePathColumns[0]);
-//                        String imagePath = c.getString(columnIndex);
-//                        c.close();
-//                        ArrayList<String> imagePathList = new ArrayList<String>();
-//                        imagePathList.add(imagePath);
-//                        cropImage(imagePathList);
-//                    }
-                    break;
-                }
-                case 200: {
-                    String imgUri = Durban.parseResult(data).get(0);
-                    Log.d("PictureCutDemo", "data --> " + imgUri);
+                case 102:
+                    String imgUri = data.getStringExtra("imgUri");
                     doCut(imgUri);
                     break;
-                }
             }
         }
     }
@@ -208,9 +155,9 @@ public class TestScanActivity extends Activity implements QRCodeView.Delegate {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
-                            Intent intent = new Intent(Intent.ACTION_PICK,
-                                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                            startActivityForResult(intent, 100);
+                            ArrayList<String> imagePathList = new ArrayList<String>();
+                            imagePathList.add(imgPath);
+                            CutPic.cropImage(TestScanActivity.this, imagePathList);
                             isFirst = false;
                         }
                     });
@@ -235,34 +182,6 @@ public class TestScanActivity extends Activity implements QRCodeView.Delegate {
                 }
             }
         }.execute();
-    }
-
-    private void cropImage(ArrayList<String> imagePathList) {
-        String cropDirectory = Utils.getAppRootPath(TestScanActivity.this).getAbsolutePath();
-
-        Log.i("CropSample", "Save directory: " + cropDirectory);
-
-        Durban.with(TestScanActivity.this)
-                .statusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark))
-                .toolBarColor(ContextCompat.getColor(this, R.color.colorPrimary))
-                .navigationBarColor(ContextCompat.getColor(this, R.color.colorPrimary))
-                .inputImagePaths(imagePathList)
-                //.outputDirectory(cropDirectory)
-                .maxWidthHeight(500, 500)
-                .aspectRatio(1, 1)
-                .compressFormat(Durban.COMPRESS_JPEG)
-                .compressQuality(90)
-                // Gesture: ROTATE, SCALE, ALL, NONE.
-                .gesture(Durban.GESTURE_ALL)
-                .controller(Controller.newBuilder()
-                        .enable(false)
-                        .rotation(true)
-                        .rotationTitle(true)
-                        .scale(true)
-                        .scaleTitle(true)
-                        .build())
-                .requestCode(200)
-                .start();
     }
 
 }

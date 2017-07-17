@@ -3,7 +3,33 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/include_toolbar" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#222222">
+
+        <TextView
+            android:id="@+id/txt_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="返回"
+            android:textColor="#ffffff"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:layout_marginLeft="20dp"/>
+
+
+        <TextView
+            android:id="@+id/txt_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:text="返回"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            android:gravity="center"/>
+
+    </RelativeLayout>
 
     <GridView
         android:id="@+id/child_grid"
@@ -14,7 +40,7 @@
         android:gravity="center"
         android:horizontalSpacing="5dip"
         android:listSelector="@android:color/transparent"
-        android:numColumns="auto_fit"
+        android:numColumns="4"
         android:padding="5dip"
         android:stretchMode="columnWidth"
         android:verticalSpacing="5dip" />

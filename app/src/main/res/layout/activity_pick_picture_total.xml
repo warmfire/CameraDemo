@@ -3,7 +3,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/include_toolbar" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#222222">
+
+        <TextView
+            android:id="@+id/txt_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="返回"
+            android:textColor="#ffffff"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:layout_marginLeft="20dp"/>
+
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/pick_picture_total_listView"
