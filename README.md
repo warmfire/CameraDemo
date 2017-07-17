@@ -4,20 +4,17 @@
 
 
 
-##参考文档
+## 参考文档
 
-1、ZXing
------
+### 1、ZXing
 https://github.com/bingoogolapple/BGAQRCode-Android</br>
 ![](https://cloud.githubusercontent.com/assets/8949716/17475222/76339bd4-5d8c-11e6-934f-96db6917f69b.gif)
 
-2、图片裁剪
------
+### 2、图片裁剪
 https://github.com/yanzhenjie/Durban</br>
 ![](https://github.com/yanzhenjie/Durban/raw/master/image/2.gif）
 
-3、相册选择图片
------
+### 3、相册选择图片
 https://github.com/mylhyl/Android-Zxing</br>
 只选取了图片选择，没有用到扫码。</br>
 ![](https://github.com/mylhyl/Android-Zxing/raw/master/preview/gif.gif)
