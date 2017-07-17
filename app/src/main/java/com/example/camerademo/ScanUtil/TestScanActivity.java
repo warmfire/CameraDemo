@@ -3,6 +3,10 @@ package com.example.camerademo.ScanUtil;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -11,6 +15,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,15 +29,19 @@ import cn.bingoogolapple.qrcode.core.QRCodeView;
 import cn.bingoogolapple.qrcode.zxing.QRCodeDecoder;
 import cn.bingoogolapple.qrcode.zxing.ZXingView;
 
-public class TestScanActivity extends Activity implements QRCodeView.Delegate {
+public class TestScanActivity extends Activity implements QRCodeView.Delegate, SensorEventListener {
     private static final String TAG = TestScanActivity.class.getSimpleName();
-    private static final int REQUEST_CODE_CHOOSE_QRCODE_FROM_GALLERY = 666;
 
     private QRCodeView mQRCodeView;
     private boolean isOpen = false;
     private ImageView imageView;
-    private TextView back, xiangce;
+    private TextView back, xiangce, txt_open;
+    private RelativeLayout ll_flashlight;
     private boolean isFirst = true;
+
+    SensorManager mSensorManager;
+    Sensor mLightSensor;
+    float mLightQuantity;
 
     private String imgPath = "";
 
@@ -44,7 +53,9 @@ public class TestScanActivity extends Activity implements QRCodeView.Delegate {
         mQRCodeView.setDelegate(this);
         imageView = (ImageView) findViewById(R.id.flashlight);
         back = (TextView) findViewById(R.id.txt_back);
+        txt_open = (TextView) findViewById(R.id.txt_open);
         xiangce = (TextView) findViewById(R.id.choose_qrcde_from_gallery);
+        ll_flashlight = (RelativeLayout) findViewById(R.id.ll_flashlight);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,21 +68,49 @@ public class TestScanActivity extends Activity implements QRCodeView.Delegate {
                 PickPictureTotalActivity.gotoActivity(TestScanActivity.this);
             }
         });
-        imageView.setOnClickListener(new View.OnClickListener() {
+        ll_flashlight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if(isOpen){
                     isOpen = false;
                     mQRCodeView.closeFlashlight();
-                    imageView.setImageDrawable(getResources().getDrawable(R.drawable.close));
+                    imageView.setImageDrawable(getResources().getDrawable(R.drawable.flashlightclose));
+                    txt_open.setTextColor(getResources().getColor(R.color.durban_White));
                 }else{
                     isOpen = true;
                     mQRCodeView.openFlashlight();
-                    imageView.setImageDrawable(getResources().getDrawable(R.drawable.open));
+                    imageView.setImageDrawable(getResources().getDrawable(R.drawable.flashlightopen));
+                    txt_open.setTextColor(getResources().getColor(R.color.green));
                 }
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+        mLightSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        mSensorManager.registerListener(this, mLightSensor, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        mLightQuantity = event.values[0];
+        if(!isOpen) {
+            // 光线传感器还有一定问题，如不需要可以注释
+            if (mLightQuantity > 80) {
+                ll_flashlight.setVisibility(View.VISIBLE);
+            } else {
+                ll_flashlight.setVisibility(View.INVISIBLE);
+            }
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
     }
 
     @Override
@@ -184,4 +223,9 @@ public class TestScanActivity extends Activity implements QRCodeView.Delegate {
         }.execute();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mSensorManager.unregisterListener(this);
+    }
 }

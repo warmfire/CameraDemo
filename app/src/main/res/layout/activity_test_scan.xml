@@ -72,13 +72,31 @@
 
     </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/flashlight"
-        android:layout_width="40dp"
+
+    <RelativeLayout
+        android:id="@+id/ll_flashlight"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/close"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="50dp"/>
+        android:layout_marginBottom="100dp">
+
+        <ImageView
+            android:id="@+id/flashlight"
+            android:layout_width="15dp"
+            android:layout_height="50dp"
+            android:src="@drawable/flashlightclose"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/txt_open"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:text="轻触打开"
+            android:textSize="10sp"
+            android:layout_below="@id/flashlight"/>
+
+    </RelativeLayout>
 
 </RelativeLayout>
