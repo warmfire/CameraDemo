@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.camerademo.R;
 import com.yanzhenjie.durban.Durban;
@@ -177,6 +178,12 @@ public class PickPictureTotalActivity extends Activity {
             picture.setFolderName(key);
             picture.setPictureCount(value.size());
             picture.setTopPicturePath(value.get(0));//获取该组的第一张图片
+            if(value.size() > 1){
+                picture.setSecondPicturePath(value.get(1));//获取该组的第一张图片
+                if(value.size() > 2){
+                    picture.setThirdPicturePath(value.get(2));//获取该组的第一张图片
+                }
+            }
             list.add(picture);
         }
         return list;

@@ -4,20 +4,47 @@
     android:layout_height="wrap_content"
     android:background="@android:color/white"
     android:paddingBottom="10dp"
-    android:paddingLeft="10dp"
+    android:paddingLeft="15dp"
     android:paddingTop="10dp">
 
-    <ImageView
-        android:id="@+id/pick_picture_total_list_item_group_image"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:background="@mipmap/ic_pictures_failure"
-        android:scaleType="centerCrop" />
+    <RelativeLayout
+        android:id="@+id/ll_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/pick_picture_total_list_item_group_image3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:alpha="0.3"
+            android:background="@drawable/img_bg"
+            android:scaleType="centerCrop" />
+
+        <ImageView
+            android:id="@+id/pick_picture_total_list_item_group_image2"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:alpha="0.5"
+            android:background="@drawable/img_bg"
+            android:scaleType="centerCrop" />
+
+        <ImageView
+            android:id="@+id/pick_picture_total_list_item_group_image"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/img_bg"
+            android:scaleType="centerCrop" />
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_toRightOf="@id/pick_picture_total_list_item_group_image">
+        android:layout_toRightOf="@id/ll_left">
 
         <LinearLayout
             android:layout_width="match_parent"

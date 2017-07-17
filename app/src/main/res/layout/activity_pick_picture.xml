@@ -12,11 +12,11 @@
             android:id="@+id/txt_back"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:gravity="center"
             android:text="返回"
             android:textColor="#ffffff"
-            android:textSize="14sp"
-            android:gravity="center"
-            android:layout_marginLeft="20dp"/>
+            android:textSize="14sp" />
 
 
         <TextView
@@ -24,10 +24,10 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
+            android:gravity="center"
             android:text="返回"
             android:textColor="#ffffff"
-            android:textSize="16sp"
-            android:gravity="center"/>
+            android:textSize="18sp" />
 
     </RelativeLayout>
 
@@ -38,10 +38,11 @@
         android:cacheColorHint="@android:color/transparent"
         android:columnWidth="100dip"
         android:gravity="center"
-        android:horizontalSpacing="5dip"
+        android:horizontalSpacing="10dip"
         android:listSelector="@android:color/transparent"
         android:numColumns="4"
-        android:padding="5dip"
+        android:padding="15dip"
         android:stretchMode="columnWidth"
-        android:verticalSpacing="5dip" />
+        android:verticalSpacing="10dip"
+        android:scrollbars="none"/>
 </LinearLayout>
